@@ -1,0 +1,784 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative h-[650px] gradient-hero overflow-hidden pt-24">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%23ffffff&quot; fill-opacity=&quot;0.4&quot;%3E%3Cpath d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+    </div>
+    
+    <!-- Hero Image with Floating Elements (Right Side) -->
+    <div class="hidden lg:block absolute right-0 top-0 w-1/2 h-full">
+        <!-- Main Hero Image with Gradient Overlay -->
+        <div class="relative w-full h-full">
+            <div class="absolute inset-0 bg-gradient-to-l from-transparent via-primary-600/30 to-primary-600/70"></div>
+            <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1200&h=800&fit=crop&q=80" 
+                 alt="Malaysian Farmer" 
+                 class="w-full h-full object-cover opacity-40"
+                 style="mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 20%, rgba(0,0,0,0.7) 40%, black 60%); -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 20%, rgba(0,0,0,0.7) 40%, black 60%);">
+        </div>
+        
+        <!-- Floating Product Cards -->
+        <div class="absolute top-32 right-20 animate-float">
+            <div class="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-2xl w-48 transform rotate-3 hover:rotate-0 transition duration-300">
+                <img src="https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?w=200&h=150&fit=crop" 
+                     alt="Fresh Prawns" 
+                     class="w-full h-24 object-cover rounded-lg mb-2">
+                <p class="text-xs font-semibold text-gray-800">Fresh Prawns</p>
+                <p class="text-sm font-bold text-primary-600">RM 45.00</p>
+            </div>
+        </div>
+        
+        <div class="absolute top-80 right-32 animate-float-delayed">
+            <div class="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-2xl w-48 transform -rotate-3 hover:rotate-0 transition duration-300">
+                <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=200&h=150&fit=crop" 
+                     alt="Organic Vegetables" 
+                     class="w-full h-24 object-cover rounded-lg mb-2">
+                <p class="text-xs font-semibold text-gray-800">Fresh Vegetables</p>
+                <p class="text-sm font-bold text-primary-600">RM 25.00</p>
+            </div>
+        </div>
+        
+        <!-- Decorative Icons -->
+        <div class="absolute top-52 right-64 animate-bounce-slow">
+            <div class="w-16 h-16 bg-accent-400/80 rounded-full flex items-center justify-center shadow-xl">
+                <i class="fas fa-fish text-white text-2xl"></i>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-40 right-16 animate-bounce-slower">
+            <div class="w-20 h-20 bg-white/80 rounded-full flex items-center justify-center shadow-xl">
+                <i class="fas fa-tractor text-primary-600 text-3xl"></i>
+            </div>
+        </div>
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center pb-24">
+        <div class="max-w-3xl lg:max-w-xl xl:max-w-2xl pt-8 pr-8">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                Malaysia's Largest<br>
+                <span class="text-accent-300">Online</span><br class="lg:hidden">
+                <span class="text-accent-300">Agromarketplace</span>
+            </h1>
+            <p class="text-lg md:text-xl text-white/90 mb-8 font-light leading-relaxed">
+                Connect with farmers, suppliers, and buyers across Malaysia. Buy and sell agricultural products seamlessly.
+            </p>
+            <div class="flex flex-wrap gap-4 mb-12">
+                <a href="{% url 'search' %}" class="bg-white text-primary-600 px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-base md:text-lg shadow-xl hover:shadow-2xl transition transform hover:scale-105">
+                    <i class="fas fa-search mr-2"></i>Browse Products
+                </a>
+                <a href="{% url 'create_listing' %}" class="bg-accent-400 text-gray-900 px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-base md:text-lg shadow-xl hover:shadow-2xl transition transform hover:scale-105">
+                    <i class="fas fa-plus mr-2"></i>Start Selling
+                </a>
+            </div>
+            
+            <!-- Stats - Beautiful Cards with Perfect Visibility -->
+            <div class="grid grid-cols-3 gap-8 max-w-4xl mx-auto relative z-20">
+                <div class="bg-white rounded-2xl p-8 text-center shadow-2xl hover:shadow-3xl transition transform hover:scale-105 hover:-translate-y-1">
+                    <div class="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent mb-3">40K</div>
+                    <div class="text-gray-700 text-base font-semibold tracking-wide">Products</div>
+                </div>
+                <div class="bg-white rounded-2xl p-8 text-center shadow-2xl hover:shadow-3xl transition transform hover:scale-105 hover:-translate-y-1">
+                    <div class="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent mb-3">10K</div>
+                    <div class="text-gray-700 text-base font-semibold tracking-wide">Sellers</div>
+                </div>
+                <div class="bg-white rounded-2xl p-8 text-center shadow-2xl hover:shadow-3xl transition transform hover:scale-105 hover:-translate-y-1">
+                    <div class="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent mb-3">2M</div>
+                    <div class="text-gray-700 text-base font-semibold tracking-wide">Users</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Wave Bottom - Smooth Blend -->
+    <div class="absolute bottom-0 left-0 right-0">
+        <svg viewBox="0 0 1440 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
+            <!-- Multiple overlapping waves for smooth blend -->
+            <path d="M0 100L48 108.3C96 116.7 192 133.3 288 141.7C384 150 480 150 576 141.7C672 133.3 768 116.7 864 116.7C960 116.7 1056 133.3 1152 141.7C1248 150 1344 150 1392 150L1440 150V200H1392C1344 200 1248 200 1152 200C1056 200 960 200 864 200C768 200 672 200 576 200C480 200 384 200 288 200C192 200 96 200 48 200H0V100Z" fill="#F9FAFB" opacity="0.3"/>
+            <path d="M0 120L48 126.7C96 133.3 192 146.7 288 153.3C384 160 480 160 576 153.3C672 146.7 768 133.3 864 126.7C960 120 1056 120 1152 126.7C1248 133.3 1344 146.7 1392 153.3L1440 160V200H1392C1344 200 1248 200 1152 200C1056 200 960 200 864 200C768 200 672 200 576 200C480 200 384 200 288 200C192 200 96 200 48 200H0V120Z" fill="#F9FAFB" opacity="0.5"/>
+            <path d="M0 140L48 145C96 150 192 160 288 165C384 170 480 170 576 165C672 160 768 150 864 145C960 140 1056 140 1152 145C1248 150 1344 160 1392 165L1440 170V200H1392C1344 200 1248 200 1152 200C1056 200 960 200 864 200C768 200 672 200 576 200C480 200 384 200 288 200C192 200 96 200 48 200H0V140Z" fill="#F9FAFB" opacity="0.8"/>
+            <path d="M0 160L48 163.3C96 166.7 192 173.3 288 176.7C384 180 480 180 576 176.7C672 173.3 768 166.7 864 163.3C960 160 1056 160 1152 163.3C1248 166.7 1344 173.3 1392 176.7L1440 180V200H1392C1344 200 1248 200 1152 200C1056 200 960 200 864 200C768 200 672 200 576 200C480 200 384 200 288 200C192 200 96 200 48 200H0V160Z" fill="#F9FAFB"/>
+        </svg>
+    </div>
+</section>
+
+<!-- Categories Section -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4">Explore by Category</h2>
+        <p class="text-xl text-gray-600">Find what you need in our specialized categories</p>
+    </div>
+    
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        <!-- Aquaculture -->
+        <a href="{% url 'category' 'aquaculture' %}" class="category-icon">
+            <div class="bg-white rounded-2xl p-6 shadow-lg card-hover text-center">
+                <div class="w-20 h-20 mx-auto bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-fish text-white text-3xl"></i>
+                </div>
+                <h3 class="font-semibold text-gray-800">Aquaculture</h3>
+                <p class="text-sm text-gray-500 mt-1">Fish & Aquatic</p>
+            </div>
+        </a>
+        
+        <!-- Seafoods -->
+        <a href="{% url 'category' 'seafoods' %}" class="category-icon">
+            <div class="bg-white rounded-2xl p-6 shadow-lg card-hover text-center">
+                <div class="w-20 h-20 mx-auto bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-shrimp text-white text-3xl"></i>
+                </div>
+                <h3 class="font-semibold text-gray-800">Seafoods</h3>
+                <p class="text-sm text-gray-500 mt-1">Fresh Seafood</p>
+            </div>
+        </a>
+        
+        <!-- Agro-Processed -->
+        <a href="{% url 'category' 'agro-processed' %}" class="category-icon">
+            <div class="bg-white rounded-2xl p-6 shadow-lg card-hover text-center">
+                <div class="w-20 h-20 mx-auto bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-boxes-stacked text-white text-3xl"></i>
+                </div>
+                <h3 class="font-semibold text-gray-800">Agro-Processed</h3>
+                <p class="text-sm text-gray-500 mt-1">Processed Goods</p>
+            </div>
+        </a>
+        
+        <!-- Courses -->
+        <a href="{% url 'category' 'courses' %}" class="category-icon">
+            <div class="bg-white rounded-2xl p-6 shadow-lg card-hover text-center">
+                <div class="w-20 h-20 mx-auto bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-graduation-cap text-white text-3xl"></i>
+                </div>
+                <h3 class="font-semibold text-gray-800">Courses</h3>
+                <p class="text-sm text-gray-500 mt-1">Training Programs</p>
+            </div>
+        </a>
+        
+        <!-- Tools for Rent -->
+        <a href="{% url 'category' 'tools-rent' %}" class="category-icon">
+            <div class="bg-white rounded-2xl p-6 shadow-lg card-hover text-center">
+                <div class="w-20 h-20 mx-auto bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-tractor text-white text-3xl"></i>
+                </div>
+                <h3 class="font-semibold text-gray-800">Tools</h3>
+                <p class="text-sm text-gray-500 mt-1">Equipment Rental</p>
+            </div>
+        </a>
+        
+        <!-- Jobs -->
+        <a href="{% url 'category' 'jobs' %}" class="category-icon">
+            <div class="bg-white rounded-2xl p-6 shadow-lg card-hover text-center">
+                <div class="w-20 h-20 mx-auto bg-gradient-to-br from-pink-500 to-pink-600 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-briefcase text-white text-3xl"></i>
+                </div>
+                <h3 class="font-semibold text-gray-800">Jobs</h3>
+                <p class="text-sm text-gray-500 mt-1">Career Opportunities</p>
+            </div>
+        </a>
+    </div>
+</section>
+
+<!-- Interactive Malaysia Map Section -->
+<section class="bg-gradient-to-br from-blue-50 via-white to-green-50 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                <i class="fas fa-map-marked-alt text-primary-600 mr-3"></i>
+                Explore by Location
+            </h2>
+            <p class="text-xl text-gray-600">Discover agricultural products across Malaysia</p>
+        </div>
+        
+        <div class="bg-white rounded-3xl shadow-2xl p-6 md:p-10">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Map Container -->
+                <div class="lg:col-span-2">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl h-[500px]">
+                        <!-- Leaflet Map (Free, No API Key Needed!) -->
+                        <div id="map" style="width: 100%; height: 500px; border-radius: 1rem; z-index: 1;"></div>
+                        
+                        <!-- Overlay Info Card -->
+                        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg max-w-xs z-[1000]">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <i class="fas fa-map-marker-alt text-primary-600 text-xl"></i>
+                                <h3 class="font-bold text-gray-900">Interactive Map</h3>
+                            </div>
+                            <p class="text-sm text-gray-600">Click markers to view products by state. Numbers show available listings.</p>
+                        </div>
+                        
+                        <!-- Legend -->
+                        <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-lg z-[1000]">
+                            <div class="flex items-center space-x-2 text-sm">
+                                <div class="flex items-center space-x-1">
+                                    <div class="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-lg">5</div>
+                                    <span class="text-gray-700 font-semibold">= 5 listings</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-center text-sm text-gray-500 mt-4">
+                        <i class="fas fa-location-dot mr-1"></i>Click on markers to browse products from that state
+                    </p>
+                </div>
+                
+                <!-- States List -->
+                <div class="lg:col-span-1">
+                    <div class="bg-gradient-to-br from-primary-50 to-secondary-50 rounded-2xl p-6 h-[500px] overflow-y-auto custom-scrollbar">
+                        <h3 class="text-lg font-bold text-gray-900 mb-4 sticky top-0 bg-primary-50 pb-2">
+                            <i class="fas fa-map-location-dot mr-2 text-primary-600"></i>Browse by State
+                        </h3>
+                        <div class="space-y-2">
+                            <a href="{% url 'search' %}?state=johor" class="block p-4 bg-white rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group border-l-4 border-transparent hover:border-primary-600">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center group-hover:bg-primary-600 transition">
+                                            <i class="fas fa-location-dot text-primary-600 group-hover:text-white transition"></i>
+                                        </div>
+                                        <div>
+                                            <span class="font-semibold text-gray-800 group-hover:text-primary-600 block">Johor</span>
+                                            {% if state_data.johor %}
+                                            <span class="text-xs text-gray-500">{{ state_data.johor }} listings</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-400 group-hover:text-primary-600 group-hover:translate-x-1 transition"></i>
+                                </div>
+                            </a>
+                            <a href="{% url 'search' %}?state=kedah" class="block p-4 bg-white rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group border-l-4 border-transparent hover:border-primary-600">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center group-hover:bg-primary-600 transition">
+                                            <i class="fas fa-location-dot text-primary-600 group-hover:text-white transition"></i>
+                                        </div>
+                                        <div>
+                                            <span class="font-semibold text-gray-800 group-hover:text-primary-600 block">Kedah</span>
+                                            {% if state_data.kedah %}
+                                            <span class="text-xs text-gray-500">{{ state_data.kedah }} listings</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-400 group-hover:text-primary-600 group-hover:translate-x-1 transition"></i>
+                                </div>
+                            </a>
+                            <a href="{% url 'search' %}?state=kelantan" class="block p-4 bg-white rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group border-l-4 border-transparent hover:border-primary-600">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center group-hover:bg-primary-600 transition">
+                                            <i class="fas fa-location-dot text-primary-600 group-hover:text-white transition"></i>
+                                        </div>
+                                        <div>
+                                            <span class="font-semibold text-gray-800 group-hover:text-primary-600 block">Kelantan</span>
+                                            {% if state_data.kelantan %}
+                                            <span class="text-xs text-gray-500">{{ state_data.kelantan }} listings</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-400 group-hover:text-primary-600 group-hover:translate-x-1 transition"></i>
+                                </div>
+                            </a>
+                            <a href="{% url 'search' %}?state=melaka" class="block p-4 bg-white rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group border-l-4 border-transparent hover:border-primary-600">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center group-hover:bg-primary-600 transition">
+                                            <i class="fas fa-location-dot text-primary-600 group-hover:text-white transition"></i>
+                                        </div>
+                                        <div>
+                                            <span class="font-semibold text-gray-800 group-hover:text-primary-600 block">Melaka</span>
+                                            {% if state_data.melaka %}
+                                            <span class="text-xs text-gray-500">{{ state_data.melaka }} listings</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-400 group-hover:text-primary-600 group-hover:translate-x-1 transition"></i>
+                                </div>
+                            </a>
+                            <a href="{% url 'search' %}?state=negeri_sembilan" class="block p-4 bg-white rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group border-l-4 border-transparent hover:border-primary-600">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center group-hover:bg-primary-600 transition">
+                                            <i class="fas fa-location-dot text-primary-600 group-hover:text-white transition"></i>
+                                        </div>
+                                        <div>
+                                            <span class="font-semibold text-gray-800 group-hover:text-primary-600 block">N. Sembilan</span>
+                                            {% if state_data.negeri_sembilan %}
+                                            <span class="text-xs text-gray-500">{{ state_data.negeri_sembilan }} listings</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-400 group-hover:text-primary-600 group-hover:translate-x-1 transition"></i>
+                                </div>
+                            </a>
+                            <a href="{% url 'search' %}?state=pahang" class="block p-4 bg-white rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group border-l-4 border-transparent hover:border-primary-600">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center group-hover:bg-primary-600 transition">
+                                            <i class="fas fa-location-dot text-primary-600 group-hover:text-white transition"></i>
+                                        </div>
+                                        <div>
+                                            <span class="font-semibold text-gray-800 group-hover:text-primary-600 block">Pahang</span>
+                                            {% if state_data.pahang %}
+                                            <span class="text-xs text-gray-500">{{ state_data.pahang }} listings</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-400 group-hover:text-primary-600 group-hover:translate-x-1 transition"></i>
+                                </div>
+                            </a>
+                            <a href="{% url 'search' %}?state=penang" class="block p-4 bg-white rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group border-l-4 border-transparent hover:border-primary-600">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center group-hover:bg-primary-600 transition">
+                                            <i class="fas fa-location-dot text-primary-600 group-hover:text-white transition"></i>
+                                        </div>
+                                        <div>
+                                            <span class="font-semibold text-gray-800 group-hover:text-primary-600 block">Penang</span>
+                                            {% if state_data.penang %}
+                                            <span class="text-xs text-gray-500">{{ state_data.penang }} listings</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-400 group-hover:text-primary-600 group-hover:translate-x-1 transition"></i>
+                                </div>
+                            </a>
+                            <a href="{% url 'search' %}?state=perak" class="block p-4 bg-white rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group border-l-4 border-transparent hover:border-primary-600">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center group-hover:bg-primary-600 transition">
+                                            <i class="fas fa-location-dot text-primary-600 group-hover:text-white transition"></i>
+                                        </div>
+                                        <div>
+                                            <span class="font-semibold text-gray-800 group-hover:text-primary-600 block">Perak</span>
+                                            {% if state_data.perak %}
+                                            <span class="text-xs text-gray-500">{{ state_data.perak }} listings</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-400 group-hover:text-primary-600 group-hover:translate-x-1 transition"></i>
+                                </div>
+                            </a>
+                            <a href="{% url 'search' %}?state=perlis" class="block p-4 bg-white rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group border-l-4 border-transparent hover:border-primary-600">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center group-hover:bg-primary-600 transition">
+                                            <i class="fas fa-location-dot text-primary-600 group-hover:text-white transition"></i>
+                                        </div>
+                                        <div>
+                                            <span class="font-semibold text-gray-800 group-hover:text-primary-600 block">Perlis</span>
+                                            {% if state_data.perlis %}
+                                            <span class="text-xs text-gray-500">{{ state_data.perlis }} listings</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-400 group-hover:text-primary-600 group-hover:translate-x-1 transition"></i>
+                                </div>
+                            </a>
+                            <a href="{% url 'search' %}?state=sabah" class="block p-4 bg-white rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group border-l-4 border-transparent hover:border-primary-600">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center group-hover:bg-primary-600 transition">
+                                            <i class="fas fa-location-dot text-primary-600 group-hover:text-white transition"></i>
+                                        </div>
+                                        <div>
+                                            <span class="font-semibold text-gray-800 group-hover:text-primary-600 block">Sabah</span>
+                                            {% if state_data.sabah %}
+                                            <span class="text-xs text-gray-500">{{ state_data.sabah }} listings</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-400 group-hover:text-primary-600 group-hover:translate-x-1 transition"></i>
+                                </div>
+                            </a>
+                            <a href="{% url 'search' %}?state=sarawak" class="block p-4 bg-white rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group border-l-4 border-transparent hover:border-primary-600">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center group-hover:bg-primary-600 transition">
+                                            <i class="fas fa-location-dot text-primary-600 group-hover:text-white transition"></i>
+                                        </div>
+                                        <div>
+                                            <span class="font-semibold text-gray-800 group-hover:text-primary-600 block">Sarawak</span>
+                                            {% if state_data.sarawak %}
+                                            <span class="text-xs text-gray-500">{{ state_data.sarawak }} listings</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-400 group-hover:text-primary-600 group-hover:translate-x-1 transition"></i>
+                                </div>
+                            </a>
+                            <a href="{% url 'search' %}?state=selangor" class="block p-4 bg-white rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group border-l-4 border-transparent hover:border-primary-600">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center group-hover:bg-primary-600 transition">
+                                            <i class="fas fa-location-dot text-primary-600 group-hover:text-white transition"></i>
+                                        </div>
+                                        <div>
+                                            <span class="font-semibold text-gray-800 group-hover:text-primary-600 block">Selangor</span>
+                                            {% if state_data.selangor %}
+                                            <span class="text-xs text-gray-500">{{ state_data.selangor }} listings</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-400 group-hover:text-primary-600 group-hover:translate-x-1 transition"></i>
+                                </div>
+                            </a>
+                            <a href="{% url 'search' %}?state=terengganu" class="block p-4 bg-white rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group border-l-4 border-transparent hover:border-primary-600">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center group-hover:bg-primary-600 transition">
+                                            <i class="fas fa-location-dot text-primary-600 group-hover:text-white transition"></i>
+                                        </div>
+                                        <div>
+                                            <span class="font-semibold text-gray-800 group-hover:text-primary-600 block">Terengganu</span>
+                                            {% if state_data.terengganu %}
+                                            <span class="text-xs text-gray-500">{{ state_data.terengganu }} listings</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-400 group-hover:text-primary-600 group-hover:translate-x-1 transition"></i>
+                                </div>
+                            </a>
+                            <a href="{% url 'search' %}?state=kuala_lumpur" class="block p-4 bg-white rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group border-l-4 border-transparent hover:border-accent-400">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-accent-100 rounded-full flex items-center justify-center group-hover:bg-accent-400 transition">
+                                            <i class="fas fa-city text-accent-600 group-hover:text-gray-900 transition"></i>
+                                        </div>
+                                        <div>
+                                            <span class="font-semibold text-gray-800 group-hover:text-accent-600 block">Kuala Lumpur</span>
+                                            {% if state_data.kuala_lumpur %}
+                                            <span class="text-xs text-gray-500">{{ state_data.kuala_lumpur }} listings</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-400 group-hover:text-accent-600 group-hover:translate-x-1 transition"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #059669;
+    border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #047857;
+}
+</style>
+
+<!-- Leaflet CSS (Free Open Source Maps!) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+<!-- Leaflet JavaScript -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<script>
+// State coordinates (approximate center of each state)
+const stateLocations = {
+    'johor': { lat: 1.4854, lng: 103.7618, name: 'Johor' },
+    'kedah': { lat: 6.1184, lng: 100.3681, name: 'Kedah' },
+    'kelantan': { lat: 6.1256, lng: 102.2381, name: 'Kelantan' },
+    'melaka': { lat: 2.1896, lng: 102.2501, name: 'Melaka' },
+    'negeri_sembilan': { lat: 2.7258, lng: 101.9424, name: 'Negeri Sembilan' },
+    'pahang': { lat: 3.8126, lng: 103.3256, name: 'Pahang' },
+    'penang': { lat: 5.4164, lng: 100.3327, name: 'Penang' },
+    'perak': { lat: 4.5921, lng: 101.0901, name: 'Perak' },
+    'perlis': { lat: 6.4449, lng: 100.2048, name: 'Perlis' },
+    'sabah': { lat: 5.9788, lng: 116.0753, name: 'Sabah' },
+    'sarawak': { lat: 1.5533, lng: 110.3593, name: 'Sarawak' },
+    'selangor': { lat: 3.0738, lng: 101.5183, name: 'Selangor' },
+    'terengganu': { lat: 5.3117, lng: 103.1324, name: 'Terengganu' },
+    'kuala_lumpur': { lat: 3.1390, lng: 101.6869, name: 'Kuala Lumpur' }
+};
+
+// Get state data from Django
+const stateData = {{ state_data_json|safe }};
+
+// Initialize map when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Create map centered on Malaysia
+    const map = L.map('map', {
+        center: [4.2105, 108.9758],
+        zoom: 6,
+        zoomControl: true,
+        scrollWheelZoom: true
+    });
+
+    // Add OpenStreetMap tiles (FREE!)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+        maxZoom: 19
+    }).addTo(map);
+
+    // Custom marker icon with count
+    function createNumberIcon(count) {
+        return L.divIcon({
+            className: 'custom-marker',
+            html: `
+                <div class="marker-circle" style="
+                    width: 40px;
+                    height: 40px;
+                    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-weight: bold;
+                    font-size: 16px;
+                    border: 3px solid white;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    transform-origin: center center;
+                    position: relative;
+                ">${count}</div>
+            `,
+            iconSize: [40, 40],
+            iconAnchor: [20, 20],
+            popupAnchor: [0, -20]
+        });
+    }
+
+    // Add markers for each state with listings
+    Object.keys(stateLocations).forEach(stateKey => {
+        const location = stateLocations[stateKey];
+        const count = stateData[stateKey] || 0;
+        
+        if (count > 0) {
+            const marker = L.marker([location.lat, location.lng], {
+                icon: createNumberIcon(count)
+            }).addTo(map);
+
+            // Popup content
+            const popupContent = `
+                <div style="padding: 12px; min-width: 180px; font-family: system-ui, -apple-system, sans-serif;">
+                    <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: bold; color: #1f2937;">
+                        ${location.name}
+                    </h3>
+                    <p style="margin: 0 0 12px 0; color: #6b7280; font-size: 14px;">
+                        <i class="fas fa-box" style="color: #059669; margin-right: 5px;"></i>
+                        <strong>${count}</strong> ${count === 1 ? 'listing' : 'listings'} available
+                    </p>
+                    <a href="/search?state=${stateKey}" 
+                       style="display: inline-block; background: linear-gradient(135deg, #059669 0%, #047857 100%); 
+                              color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; 
+                              font-weight: 600; font-size: 14px; text-align: center; width: 100%;
+                              box-shadow: 0 2px 8px rgba(5, 150, 105, 0.3); transition: all 0.3s ease;">
+                        <i class="fas fa-search" style="margin-right: 6px;"></i>View Listings
+                    </a>
+                </div>
+            `;
+
+            marker.bindPopup(popupContent, {
+                maxWidth: 250,
+                className: 'custom-popup'
+            });
+
+            // Hover effect - scale up marker
+            marker.on('mouseover', function(e) {
+                const markerElement = this.getElement();
+                if (markerElement) {
+                    const circle = markerElement.querySelector('.marker-circle');
+                    if (circle) {
+                        circle.style.transform = 'scale(1.2)';
+                        circle.style.boxShadow = '0 6px 20px rgba(0,0,0,0.4)';
+                    }
+                }
+            });
+
+            marker.on('mouseout', function(e) {
+                const markerElement = this.getElement();
+                if (markerElement) {
+                    const circle = markerElement.querySelector('.marker-circle');
+                    if (circle) {
+                        circle.style.transform = 'scale(1)';
+                        circle.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+                    }
+                }
+            });
+        }
+    });
+
+    // Optional: Add scale control
+    L.control.scale().addTo(map);
+});
+</script>
+
+<style>
+/* Custom popup styling */
+.leaflet-popup-content-wrapper {
+    border-radius: 12px !important;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2) !important;
+}
+
+.leaflet-popup-tip {
+    display: none;
+}
+
+/* Fix marker positioning and prevent jumping */
+.custom-marker {
+    background: transparent !important;
+    border: none !important;
+}
+
+.marker-circle {
+    pointer-events: all;
+}
+
+.marker-circle:hover {
+    transform: scale(1.2) !important;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4) !important;
+}
+</style>
+
+<!-- Trending Section -->
+<section class="bg-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h2 class="text-3xl font-bold text-gray-900 flex items-center">
+                    <i class="fas fa-fire text-orange-500 mr-3"></i>
+                    Trending Now
+                </h2>
+                <p class="text-gray-600 mt-2">Popular products this week</p>
+            </div>
+            <a href="{% url 'search' %}" class="text-primary-600 font-semibold hover:text-primary-700 transition">
+                View All <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for listing in trending_listings %}
+            <a href="{% url 'listing_detail' listing.slug %}" class="group">
+                <div class="bg-white rounded-2xl shadow-md card-hover overflow-hidden border border-gray-100">
+                    <div class="relative h-56 overflow-hidden bg-gray-100">
+                        {% if listing.image1 %}
+                            <img src="{{ listing.image1.url }}" alt="{{ listing.title }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
+                        {% else %}
+                            <!-- Real Images based on Product Title -->
+                            {% if 'tilapia' in listing.title.lower or 'fish' in listing.title.lower %}
+                                <img src="https://images.unsplash.com/photo-1535591273668-578e31182c4f?w=800&h=600&fit=crop&q=80" alt="Fresh Fish" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" loading="lazy">
+                            {% elif 'prawn' in listing.title.lower or 'shrimp' in listing.title.lower %}
+                                <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=800&h=600&fit=crop&q=80" alt="Fresh Prawns" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" loading="lazy">
+                            {% elif 'rice' in listing.title.lower or 'milling' in listing.title.lower or 'machine' in listing.title.lower %}
+                                <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?w=800&h=600&fit=crop&q=80" alt="Rice Milling Machine" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" loading="lazy">
+                            {% elif 'durian' in listing.title.lower or 'paste' in listing.title.lower %}
+                                <img src="https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=800&h=600&fit=crop&q=80" alt="Durian" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center bg-gradient-to-br from-amber-300 via-yellow-400 to-orange-400 relative overflow-hidden\'><div class=\'absolute inset-0 opacity-20\'><div class=\'absolute top-10 left-10 w-32 h-32 bg-white rounded-full blur-2xl\'></div><div class=\'absolute bottom-10 right-10 w-40 h-40 bg-white rounded-full blur-3xl\'></div></div><i class=\'fas fa-apple-alt text-white text-6xl relative z-10 drop-shadow-lg\'></i></div>'">
+                            {% elif 'training' in listing.title.lower or 'course' in listing.title.lower or 'certification' in listing.title.lower or 'mygap' in listing.title.lower %}
+                                <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&h=600&fit=crop&q=80" alt="Agricultural Training" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" loading="lazy">
+                            {% elif 'manager' in listing.title.lower or 'position' in listing.title.lower or 'hiring' in listing.title.lower %}
+                                <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&h=600&fit=crop&q=80" alt="Farm Job" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" loading="lazy">
+                            {% elif 'tractor' in listing.title.lower or 'equipment' in listing.title.lower or 'tool' in listing.title.lower or 'rent' in listing.title.lower %}
+                                <img src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=800&h=600&fit=crop&q=80" alt="Farm Equipment" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" loading="lazy">
+                            {% elif 'vegetable' in listing.title.lower or 'produce' in listing.title.lower %}
+                                <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=800&h=600&fit=crop&q=80" alt="Fresh Vegetables" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" loading="lazy">
+                            {% elif 'fruit' in listing.title.lower %}
+                                <img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=800&h=600&fit=crop&q=80" alt="Fresh Fruits" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" loading="lazy">
+                            {% else %}
+                                <img src="https://images.unsplash.com/photo-1560493676-04071c5f467b?w=800&h=600&fit=crop&q=80" alt="{{ listing.title }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-300" loading="lazy">
+                            {% endif %}
+                        {% endif %}
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold text-primary-600">
+                            {{ listing.category.display_name }}
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-semibold text-gray-800 mb-2 line-clamp-2 group-hover:text-primary-600 transition">
+                            {{ listing.title }}
+                        </h3>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="text-2xl font-bold text-primary-600">
+                                    RM {{ listing.price }}
+                                </div>
+                                <div class="text-xs text-gray-500 mt-1 flex items-center">
+                                    <i class="fas fa-map-marker-alt mr-1"></i>
+                                    {{ listing.get_state_display }}
+                                </div>
+                            </div>
+                            <div class="text-right text-xs text-gray-400">
+                                <i class="fas fa-eye mr-1"></i>
+                                {{ listing.views_count }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% empty %}
+            <div class="col-span-4 text-center py-12">
+                <i class="fas fa-box-open text-gray-300 text-6xl mb-4"></i>
+                <p class="text-gray-500 text-lg">No listings available yet</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="bg-gradient-to-br from-primary-50 to-secondary-50 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Why Choose Agrohub?</h2>
+            <p class="text-xl text-gray-600">Your trusted agricultural marketplace partner</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-2xl p-8 shadow-lg card-hover text-center">
+                <div class="w-16 h-16 mx-auto bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-shield-halved text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">Safe & Secure</h3>
+                <p class="text-gray-600">Your transactions are protected with our secure platform</p>
+            </div>
+            
+            <div class="bg-white rounded-2xl p-8 shadow-lg card-hover text-center">
+                <div class="w-16 h-16 mx-auto bg-gradient-to-br from-secondary-500 to-secondary-600 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-users text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">Verified Sellers</h3>
+                <p class="text-gray-600">Connect with trusted and verified agricultural sellers</p>
+            </div>
+            
+            <div class="bg-white rounded-2xl p-8 shadow-lg card-hover text-center">
+                <div class="w-16 h-16 mx-auto bg-gradient-to-br from-accent-400 to-accent-500 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-headset text-gray-900 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">24/7 Support</h3>
+                <p class="text-gray-600">AI-powered chatbot and customer support always available</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="bg-gradient-to-r from-primary-600 to-secondary-600 rounded-3xl p-12 text-center shadow-2xl">
+        <h2 class="text-4xl font-bold text-white mb-4">Ready to Start Trading?</h2>
+        <p class="text-xl text-white/90 mb-8">Join thousands of farmers and buyers on Malaysia's premier agromarketplace</p>
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="{% url 'register' %}" class="bg-white text-primary-600 px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition transform hover:scale-105">
+                <i class="fas fa-user-plus mr-2"></i>Create Free Account
+            </a>
+            <a href="{% url 'create_listing' %}" class="bg-accent-400 text-gray-900 px-8 py-4 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transition transform hover:scale-105">
+                <i class="fas fa-bullhorn mr-2"></i>Post Your First Ad
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

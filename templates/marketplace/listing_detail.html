@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ listing.title }} - Agrohub{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Breadcrumb -->
+        <nav class="text-sm mb-6">
+            <ol class="flex items-center space-x-2 text-gray-600">
+                <li><a href="{% url 'home' %}" class="hover:text-primary-600">Home</a></li>
+                <li><i class="fas fa-chevron-right text-xs"></i></li>
+                <li><a href="{% url 'category' listing.category.slug %}" class="hover:text-primary-600">{{ listing.category.display_name }}</a></li>
+                <li><i class="fas fa-chevron-right text-xs"></i></li>
+                <li class="text-primary-600">{{ listing.title }}</li>
+            </ol>
+        </nav>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Left Column - Images -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <!-- Main Image -->
+                    <div class="relative h-96 md:h-[500px] bg-gray-200">
+                        {% if listing.image1 %}
+                            <img src="{{ listing.image1.url }}" alt="{{ listing.title }}" class="w-full h-full object-cover" id="main-image">
+                        {% else %}
+                            <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary-100 to-primary-200">
+                                <i class="fas fa-image text-primary-300 text-8xl"></i>
+                            </div>
+                        {% endif %}
+                        
+                        <!-- Category Badge -->
+                        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full font-semibold text-primary-600">
+                            {{ listing.category.display_name }}
+                        </div>
+                    </div>
+                    
+                    <!-- Thumbnail Gallery -->
+                    {% if listing.image2 or listing.image3 or listing.image4 %}
+                    <div class="p-4 flex space-x-4 overflow-x-auto">
+                        {% if listing.image1 %}
+                        <img src="{{ listing.image1.url }}" alt="Thumbnail 1" class="w-24 h-24 object-cover rounded-lg cursor-pointer border-2 border-primary-600" onclick="changeMainImage('{{ listing.image1.url }}')">
+                        {% endif %}
+                        {% if listing.image2 %}
+                        <img src="{{ listing.image2.url }}" alt="Thumbnail 2" class="w-24 h-24 object-cover rounded-lg cursor-pointer hover:border-2 hover:border-primary-600" onclick="changeMainImage('{{ listing.image2.url }}')">
+                        {% endif %}
+                        {% if listing.image3 %}
+                        <img src="{{ listing.image3.url }}" alt="Thumbnail 3" class="w-24 h-24 object-cover rounded-lg cursor-pointer hover:border-2 hover:border-primary-600" onclick="changeMainImage('{{ listing.image3.url }}')">
+                        {% endif %}
+                        {% if listing.image4 %}
+                        <img src="{{ listing.image4.url }}" alt="Thumbnail 4" class="w-24 h-24 object-cover rounded-lg cursor-pointer hover:border-2 hover:border-primary-600" onclick="changeMainImage('{{ listing.image4.url }}')">
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Description -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 mt-6">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Description</h2>
+                    <div class="prose max-w-none text-gray-700">
+                        {{ listing.description|linebreaks }}
+                    </div>
+                </div>
+                
+                <!-- Safety Tips -->
+                <div class="bg-amber-50 border-l-4 border-amber-400 rounded-2xl p-6 mt-6">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-shield-halved text-amber-600 text-2xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-semibold text-amber-900 mb-2">Safety Tips</h3>
+                            <ul class="text-sm text-amber-800 space-y-1">
+                                <li><i class="fas fa-check-circle mr-2"></i>Meet seller in a safe, public location</li>
+                                <li><i class="fas fa-check-circle mr-2"></i>Inspect the item before purchase</li>
+                                <li><i class="fas fa-check-circle mr-2"></i>Pay only after collecting item</li>
+                                <li><i class="fas fa-check-circle mr-2"></i>Report suspicious activity</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column - Seller Info & Actions -->
+            <div class="lg:col-span-1">
+                <!-- Price Card -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 sticky top-24">
+                    <div class="mb-6">
+                        <div class="text-4xl font-bold text-primary-600 mb-2">
+                            RM {{ listing.price }}
+                        </div>
+                        <div class="flex items-center text-gray-600">
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            <span>{{ listing.get_state_display }}, {{ listing.district }}</span>
+                        </div>
+                    </div>
+                    
+                    <h1 class="text-2xl font-bold text-gray-900 mb-6">
+                        {{ listing.title }}
+                    </h1>
+                    
+                    <!-- Seller Card -->
+                    <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4 mb-6">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                {% if listing.seller.profile.profile_picture %}
+                                    <img src="{{ listing.seller.profile.profile_picture.url }}" alt="{{ listing.seller.username }}" class="w-full h-full rounded-full object-cover">
+                                {% else %}
+                                    <i class="fas fa-user text-white"></i>
+                                {% endif %}
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2">
+                                    <h3 class="font-semibold text-gray-900">{{ listing.seller.username }}</h3>
+                                    {% if listing.seller.profile.is_verified %}
+                                        <span class="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded-full flex items-center">
+                                            <i class="fas fa-check-circle mr-1"></i>Verified
+                                        </span>
+                                    {% endif %}
+                                </div>
+                                {% if listing.seller.profile.company_name %}
+                                    <p class="text-sm text-gray-600 mt-1">{{ listing.seller.profile.company_name }}</p>
+                                {% endif %}
+                                <p class="text-xs text-gray-500 mt-1">
+                                    <i class="fas fa-user-tie mr-1"></i>{{ listing.seller.get_user_type_display }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="space-y-3">
+                        <a href="#" class="block w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold py-4 rounded-full text-center transition shadow-lg hover:shadow-xl transform hover:scale-105">
+                            <i class="fas fa-comments mr-2"></i>Chat with Seller
+                        </a>
+                        
+                        <a href="https://wa.me/60123456789?text=Hi, I'm interested in {{ listing.title }}" target="_blank" class="block w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 rounded-full text-center transition shadow-lg hover:shadow-xl transform hover:scale-105">
+                            <i class="fab fa-whatsapp mr-2"></i>WhatsApp Seller
+                        </a>
+                        
+                        <button class="block w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-4 rounded-full text-center transition">
+                            <i class="fas fa-phone mr-2"></i>Call Seller
+                        </button>
+                    </div>
+                    
+                    <!-- Stats -->
+                    <div class="grid grid-cols-2 gap-4 mt-6 pt-6 border-t border-gray-200">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-gray-900">{{ listing.views_count }}</div>
+                            <div class="text-xs text-gray-600 mt-1">Views</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-gray-900">{{ listing.created_at|timesince }}</div>
+                            <div class="text-xs text-gray-600 mt-1">Posted</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Availability Section -->
+                    {% if listing.available_months %}
+                    <div class="mt-6 pt-6 border-t border-gray-200">
+                        <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-4">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-calendar-check text-green-600 text-xl"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h4 class="text-sm font-bold text-gray-900 mb-1">Available Months</h4>
+                                    <p class="text-sm text-gray-700 font-semibold">
+                                        {{ listing.get_available_months_display }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Related Listings -->
+        {% if related_listings %}
+        <div class="mt-16">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8">Similar Products</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {% for related in related_listings %}
+                <a href="{% url 'listing_detail' related.slug %}" class="group">
+                    <div class="bg-white rounded-2xl shadow-md card-hover overflow-hidden">
+                        <div class="relative h-48 bg-gray-200">
+                            {% if related.image1 %}
+                                <img src="{{ related.image1.url }}" alt="{{ related.title }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
+                            {% else %}
+                                <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary-100 to-primary-200">
+                                    <i class="fas fa-image text-primary-300 text-4xl"></i>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold text-gray-800 mb-2 line-clamp-2">{{ related.title }}</h3>
+                            <div class="text-xl font-bold text-primary-600">RM {{ related.price }}</div>
+                            <div class="text-xs text-gray-500 mt-1">{{ related.get_state_display }}</div>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+function changeMainImage(imageUrl) {
+    document.getElementById('main-image').src = imageUrl;
+}
+</script>
+{% endblock %}

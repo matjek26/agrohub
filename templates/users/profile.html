@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile - Agrohub{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Profile Card -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-2xl shadow-lg p-8 text-center">
+                    <div class="w-32 h-32 mx-auto bg-gradient-to-br from-primary-500 to-primary-700 rounded-full flex items-center justify-center mb-4">
+                        {% if user.profile.profile_picture %}
+                            <img src="{{ user.profile.profile_picture.url }}" alt="{{ user.username }}" class="w-full h-full rounded-full object-cover">
+                        {% else %}
+                            <i class="fas fa-user text-white text-5xl"></i>
+                        {% endif %}
+                    </div>
+                    
+                    <h2 class="text-2xl font-bold text-gray-900 mb-1">{{ user.username }}</h2>
+                    <p class="text-gray-600 mb-4">{{ user.email }}</p>
+                    
+                    {% if user.profile.is_verified %}
+                        <span class="inline-block bg-blue-100 text-blue-600 px-4 py-2 rounded-full font-semibold mb-4">
+                            <i class="fas fa-check-circle mr-1"></i>Verified Seller
+                        </span>
+                    {% endif %}
+                    
+                    <div class="bg-gradient-to-br from-primary-50 to-secondary-50 rounded-xl p-4 mb-6">
+                        <div class="text-sm text-gray-600 mb-1">User Type</div>
+                        <div class="font-bold text-gray-900">{{ user.get_user_type_display }}</div>
+                    </div>
+                    
+                    {% if user.profile.company_name %}
+                        <div class="bg-gray-50 rounded-xl p-4 mb-6 text-left">
+                            <div class="text-sm text-gray-600 mb-2">Company Information</div>
+                            <div class="font-semibold text-gray-900">{{ user.profile.company_name }}</div>
+                            {% if user.profile.business_registration %}
+                                <div class="text-sm text-gray-600 mt-1">Reg: {{ user.profile.business_registration }}</div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    
+                    <button class="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 rounded-xl transition mb-2">
+                        <i class="fas fa-edit mr-2"></i>Edit Profile
+                    </button>
+                    
+                    <a href="{% url 'logout' %}" class="block w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 rounded-xl transition">
+                        <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                    </a>
+                </div>
+            </div>
+            
+            <!-- My Listings -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-2xl shadow-lg p-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900">My Listings</h3>
+                        <a href="{% url 'create_listing' %}" class="bg-accent-400 hover:bg-accent-500 text-gray-900 font-bold px-4 py-2 rounded-full transition">
+                            <i class="fas fa-plus mr-2"></i>New Listing
+                        </a>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {% for listing in user.listings.all %}
+                        <div class="border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition">
+                            <div class="relative h-40 bg-gray-200">
+                                {% if listing.image1 %}
+                                    <img src="{{ listing.image1.url }}" alt="{{ listing.title }}" class="w-full h-full object-cover">
+                                {% else %}
+                                    <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary-100 to-primary-200">
+                                        <i class="fas fa-image text-primary-300 text-3xl"></i>
+                                    </div>
+                                {% endif %}
+                                <div class="absolute top-2 right-2">
+                                    {% if listing.is_active %}
+                                        <span class="bg-green-500 text-white text-xs px-2 py-1 rounded-full">Active</span>
+                                    {% else %}
+                                        <span class="bg-gray-500 text-white text-xs px-2 py-1 rounded-full">Inactive</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="font-semibold text-gray-800 mb-2 line-clamp-1">{{ listing.title }}</h4>
+                                <div class="text-xl font-bold text-primary-600 mb-2">RM {{ listing.price }}</div>
+                                <div class="flex items-center justify-between text-sm text-gray-600">
+                                    <span><i class="fas fa-eye mr-1"></i>{{ listing.views_count }} views</span>
+                                    <span><i class="fas fa-clock mr-1"></i>{{ listing.created_at|timesince }}</span>
+                                </div>
+                                <div class="flex space-x-2 mt-4">
+                                    <a href="{% url 'listing_detail' listing.slug %}" class="flex-1 text-center bg-primary-600 hover:bg-primary-700 text-white py-2 rounded-lg text-sm transition">
+                                        View
+                                    </a>
+                                    <button class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 rounded-lg text-sm transition">
+                                        Edit
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="col-span-2 text-center py-12">
+                            <i class="fas fa-box-open text-gray-300 text-6xl mb-4"></i>
+                            <p class="text-gray-500 text-lg mb-4">You haven't created any listings yet</p>
+                            <a href="{% url 'create_listing' %}" class="inline-block bg-accent-400 hover:bg-accent-500 text-gray-900 font-bold px-6 py-3 rounded-full transition">
+                                <i class="fas fa-plus mr-2"></i>Create Your First Listing
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

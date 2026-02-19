@@ -1,0 +1,165 @@
+<!-- Chatbot Floating Button -->
+<div class="chatbot-bubble">
+    <button onclick="toggleChatbot()" class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-700 rounded-full shadow-2xl hover:shadow-3xl transition transform hover:scale-110 flex items-center justify-center" id="chatbot-button">
+        <i class="fas fa-robot text-white text-2xl" id="chatbot-icon"></i>
+    </button>
+</div>
+
+<!-- Chat Window (Hidden by default) -->
+<div id="chat-window" class="chat-window bg-white rounded-2xl overflow-hidden hidden">
+    <!-- Chat Header -->
+    <div class="bg-gradient-to-r from-primary-600 to-primary-700 p-4 text-white">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold">Agrohub Assistant</h3>
+                    <p class="text-xs text-white/80">Powered by Magna Cita AI</p>
+                </div>
+            </div>
+            <button onclick="toggleChatbot()" class="text-white hover:text-white/80 transition">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Chat Messages -->
+    <div id="chat-messages" class="h-80 overflow-y-auto p-4 bg-gray-50 space-y-4">
+        <!-- Welcome Message -->
+        <div class="flex items-start space-x-2">
+            <div class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-robot text-white text-sm"></i>
+            </div>
+            <div class="bg-white rounded-2xl rounded-tl-none p-3 shadow-sm max-w-xs">
+                <p class="text-sm text-gray-800">Hello! 👋 Ask me about farming tips, MyGAP certification, or product recommendations!</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Chat Input -->
+    <div class="p-4 bg-white border-t border-gray-200">
+        <form onsubmit="sendMessage(event)" class="flex space-x-2">
+            <input type="text" 
+                   id="chat-input" 
+                   placeholder="Type your message..." 
+                   class="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:border-primary-500"
+                   autocomplete="off">
+            <button type="submit" class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-full transition">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </form>
+        <p class="text-xs text-gray-500 mt-2 text-center">
+            <i class="fas fa-shield-halved mr-1"></i>Your conversations are private
+        </p>
+    </div>
+</div>
+
+<script>
+function toggleChatbot() {
+    const chatWindow = document.getElementById('chat-window');
+    const chatIcon = document.getElementById('chatbot-icon');
+    
+    if (chatWindow.classList.contains('hidden')) {
+        chatWindow.classList.remove('hidden');
+        chatIcon.className = 'fas fa-times text-white text-2xl';
+    } else {
+        chatWindow.classList.add('hidden');
+        chatIcon.className = 'fas fa-robot text-white text-2xl';
+    }
+}
+
+function sendMessage(event) {
+    event.preventDefault();
+    
+    const input = document.getElementById('chat-input');
+    const message = input.value.trim();
+    
+    if (!message) return;
+    
+    // Add user message to chat
+    addMessageToChat(message, 'user');
+    input.value = '';
+    
+    // Show typing indicator
+    showTypingIndicator();
+    
+    // Send to backend
+    fetch('/chatbot/api/chat/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: message })
+    })
+    .then(response => response.json())
+    .then(data => {
+        removeTypingIndicator();
+        if (data.success) {
+            addMessageToChat(data.response, 'bot');
+        } else {
+            addMessageToChat('Sorry, I encountered an error. Please try again.', 'bot');
+        }
+    })
+    .catch(error => {
+        removeTypingIndicator();
+        addMessageToChat('Sorry, I could not connect. Please try again later.', 'bot');
+    });
+}
+
+function addMessageToChat(message, sender) {
+    const messagesContainer = document.getElementById('chat-messages');
+    const messageDiv = document.createElement('div');
+    
+    if (sender === 'user') {
+        messageDiv.className = 'flex justify-end';
+        messageDiv.innerHTML = `
+            <div class="bg-primary-600 text-white rounded-2xl rounded-tr-none p-3 shadow-sm max-w-xs">
+                <p class="text-sm">${message}</p>
+            </div>
+        `;
+    } else {
+        messageDiv.className = 'flex items-start space-x-2';
+        messageDiv.innerHTML = `
+            <div class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-robot text-white text-sm"></i>
+            </div>
+            <div class="bg-white rounded-2xl rounded-tl-none p-3 shadow-sm max-w-xs">
+                <p class="text-sm text-gray-800">${message}</p>
+            </div>
+        `;
+    }
+    
+    messagesContainer.appendChild(messageDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+function showTypingIndicator() {
+    const messagesContainer = document.getElementById('chat-messages');
+    const typingDiv = document.createElement('div');
+    typingDiv.id = 'typing-indicator';
+    typingDiv.className = 'flex items-start space-x-2';
+    typingDiv.innerHTML = `
+        <div class="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center flex-shrink-0">
+            <i class="fas fa-robot text-white text-sm"></i>
+        </div>
+        <div class="bg-white rounded-2xl rounded-tl-none p-3 shadow-sm">
+            <div class="flex space-x-1">
+                <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+                <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+            </div>
+        </div>
+    `;
+    messagesContainer.appendChild(typingDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+function removeTypingIndicator() {
+    const typingIndicator = document.getElementById('typing-indicator');
+    if (typingIndicator) {
+        typingIndicator.remove();
+    }
+}
+</script>

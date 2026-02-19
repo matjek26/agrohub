@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Agrohub - Malaysia's Largest Online Agromarketplace{% endblock %}</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts - Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981',  // Emerald Green
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        secondary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',  // Deep Blue
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        accent: {
+                            50: '#fefce8',
+                            100: '#fef9c3',
+                            200: '#fef08a',
+                            300: '#fde047',
+                            400: '#facc15',  // Golden Yellow
+                            500: '#eab308',
+                            600: '#ca8a04',
+                            700: '#a16207',
+                            800: '#854d0e',
+                            900: '#713f12',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-hero {
+            background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+        }
+        
+        .gradient-overlay {
+            background: linear-gradient(to right, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.8));
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .category-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .category-icon:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Hero Floating Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(3deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(3deg);
+            }
+        }
+        
+        @keyframes float-delayed {
+            0%, 100% {
+                transform: translateY(0px) rotate(-3deg);
+            }
+            50% {
+                transform: translateY(-25px) rotate(-3deg);
+            }
+        }
+        
+        @keyframes bounce-slow {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+        
+        @keyframes bounce-slower {
+            0%, 100% {
+                transform: translateY(0px) scale(1);
+            }
+            50% {
+                transform: translateY(-20px) scale(1.05);
+            }
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .animate-float-delayed {
+            animation: float-delayed 7s ease-in-out infinite;
+        }
+        
+        .animate-bounce-slow {
+            animation: bounce-slow 4s ease-in-out infinite;
+        }
+        
+        .animate-bounce-slower {
+            animation: bounce-slower 5s ease-in-out infinite;
+        }
+        
+        /* Chatbot styles */
+        .chatbot-bubble {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+        
+        .chat-window {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 380px;
+            height: 500px;
+            z-index: 999;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        @media (max-width: 640px) {
+            .chat-window {
+                width: calc(100vw - 40px);
+                right: 20px;
+            }
+        }
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="bg-gray-50">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="{% url 'home' %}" class="flex items-center space-x-2">
+                        <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-seedling text-white text-xl"></i>
+                        </div>
+                        <span class="text-2xl font-bold">
+                            <span class="text-primary-600">AGRO</span><span class="text-gray-800">HUB</span>
+                        </span>
+                    </a>
+                </div>
+                
+                <!-- Search Bar (Desktop) -->
+                <div class="hidden md:flex flex-1 max-w-2xl mx-8">
+                    <form action="{% url 'search' %}" method="GET" class="w-full">
+                        <div class="relative">
+                            <input type="text" 
+                                   name="q"
+                                   placeholder="Search anything in Agrohub..." 
+                                   class="w-full px-6 py-3 pl-12 pr-4 rounded-full border-2 border-gray-200 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200 transition">
+                            <button type="submit" class="absolute left-4 top-1/2 transform -translate-y-1/2">
+                                <i class="fas fa-search text-gray-400"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Right Menu -->
+                <div class="flex items-center space-x-4">
+                    <!-- Language Switcher -->
+                    <div class="relative group">
+                        <button class="flex items-center space-x-2 px-4 py-2 rounded-full hover:bg-gray-100 transition duration-200">
+                            <i class="fas fa-globe text-primary-600 text-lg"></i>
+                            <span class="hidden sm:inline font-medium text-gray-700">EN</span>
+                            <i class="fas fa-chevron-down text-gray-500 text-xs"></i>
+                        </button>
+                        
+                        <!-- Dropdown Menu -->
+                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-2xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2">
+                            <div class="py-2">
+                                <a href="#" class="flex items-center space-x-3 px-4 py-3 hover:bg-primary-50 transition duration-200 group/item">
+                                    <img src="https://flagcdn.com/w40/gb.png" alt="English" class="w-6 h-4 rounded shadow-sm">
+                                    <span class="font-medium text-gray-700 group-hover/item:text-primary-600">English</span>
+                                    <i class="fas fa-check text-primary-600 ml-auto"></i>
+                                </a>
+                                <a href="#" class="flex items-center space-x-3 px-4 py-3 hover:bg-primary-50 transition duration-200 group/item">
+                                    <img src="https://flagcdn.com/w40/my.png" alt="Bahasa Malaysia" class="w-6 h-4 rounded shadow-sm">
+                                    <span class="font-medium text-gray-700 group-hover/item:text-primary-600">Bahasa Malaysia</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'profile' %}" class="hidden md:flex items-center space-x-2 text-gray-700 hover:text-primary-600 transition">
+                            <i class="fas fa-user-circle text-xl"></i>
+                            <span class="font-medium">{{ user.username }}</span>
+                        </a>
+                        <a href="{% url 'logout' %}" class="hidden md:block px-4 py-2 text-gray-700 hover:text-primary-600 transition">
+                            Logout
+                        </a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="hidden md:block px-4 py-2 text-gray-700 hover:text-primary-600 font-medium transition">
+                            Login
+                        </a>
+                    {% endif %}
+                    
+                    <a href="{% url 'create_listing' %}" class="bg-gradient-to-r from-accent-400 to-accent-500 hover:from-accent-500 hover:to-accent-600 text-gray-900 font-bold px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition transform hover:scale-105">
+                        <i class="fas fa-plus mr-2"></i>POST FREE AD
+                    </a>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button class="md:hidden text-gray-700" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Search -->
+            <div class="md:hidden pb-4">
+                <form action="{% url 'search' %}" method="GET" class="w-full">
+                    <div class="relative">
+                        <input type="text" 
+                               name="q"
+                               placeholder="Search..." 
+                               class="w-full px-4 py-2 pl-10 rounded-full border-2 border-gray-200 focus:border-primary-500 focus:outline-none">
+                        <button type="submit" class="absolute left-3 top-1/2 transform -translate-y-1/2">
+                            <i class="fas fa-search text-gray-400 text-sm"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Messages -->
+    {% if messages %}
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+            {% for message in messages %}
+                <div class="bg-{{ message.tags }}-100 border border-{{ message.tags }}-400 text-{{ message.tags }}-700 px-4 py-3 rounded relative mb-4" role="alert">
+                    <span class="block sm:inline">{{ message }}</span>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+    <!-- Main Content -->
+    {% block content %}{% endblock %}
+    
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-seedling text-white"></i>
+                        </div>
+                        <span class="text-xl font-bold">AGROHUB</span>
+                    </div>
+                    <p class="text-gray-400 text-sm">Malaysia's Largest Online Agromarketplace</p>
+                    <p class="text-gray-500 text-xs mt-2">Powered by Magna Cita Sdn. Bhd.</p>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-primary-400 transition">About Us</a></li>
+                        <li><a href="#" class="hover:text-primary-400 transition">Help Center</a></li>
+                        <li><a href="#" class="hover:text-primary-400 transition">Safety Tips</a></li>
+                        <li><a href="#" class="hover:text-primary-400 transition">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Categories</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-primary-400 transition">Aquaculture</a></li>
+                        <li><a href="#" class="hover:text-primary-400 transition">Seafoods</a></li>
+                        <li><a href="#" class="hover:text-primary-400 transition">Courses</a></li>
+                        <li><a href="#" class="hover:text-primary-400 transition">Tools</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Contact Us</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><i class="fas fa-envelope mr-2"></i>contact@agrohub.my</li>
+                        <li><i class="fas fa-phone mr-2"></i>+60 12-345 6789</li>
+                        <li class="flex space-x-4 mt-4">
+                            <a href="#" class="text-2xl hover:text-primary-400 transition"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="text-2xl hover:text-primary-400 transition"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-2xl hover:text-primary-400 transition"><i class="fab fa-whatsapp"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
+                <p>&copy; 2025 Agrohub by Magna Cita Sdn. Bhd. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Chatbot Widget -->
+    {% include 'includes/chatbot_widget.html' %}
+    
+    <script>
+        function toggleMobileMenu() {
+            // Mobile menu toggle logic
+            alert('Mobile menu - to be implemented');
+        }
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

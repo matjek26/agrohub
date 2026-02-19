@@ -1,0 +1,366 @@
+{% extends 'base.html' %}
+
+{% block title %}Register - Agrohub{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-green-50 via-yellow-50 to-green-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="inline-block bg-yellow-400 px-6 py-2 rounded-full mb-6">
+                <h1 class="text-sm font-bold text-gray-900 tracking-wider">REGISTER YOUR ACCOUNT WITH AGROHUB</h1>
+            </div>
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-2">REGISTER</h2>
+            <p class="text-gray-600 text-lg">Join Malaysia's premier agricultural marketplace</p>
+        </div>
+
+        <!-- Main Registration Card -->
+        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+            <form method="POST" id="registrationForm" class="p-8 md:p-12">
+                {% csrf_token %}
+                
+                <!-- User Type Selection -->
+                <div class="mb-10">
+                    <label class="block text-center text-lg font-semibold text-gray-700 mb-6">Select Account Type</label>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                        <label class="relative cursor-pointer">
+                            <input type="radio" name="user_type" value="buyer" checked class="peer sr-only" onchange="toggleFormFields()">
+                            <div class="p-6 border-4 border-gray-300 rounded-2xl peer-checked:border-green-600 peer-checked:bg-green-50 transition-all transform hover:scale-105 shadow-md peer-checked:shadow-xl">
+                                <div class="text-center">
+                                    <i class="fas fa-shopping-basket text-5xl mb-4 text-gray-400 peer-checked:text-green-600"></i>
+                                    <h3 class="text-2xl font-bold text-gray-800">BUYER</h3>
+                                    <p class="text-sm text-gray-600 mt-2">Purchase fresh agricultural products</p>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="relative cursor-pointer">
+                            <input type="radio" name="user_type" value="seller" class="peer sr-only" onchange="toggleFormFields()">
+                            <div class="p-6 border-4 border-gray-300 rounded-2xl peer-checked:border-yellow-500 peer-checked:bg-yellow-50 transition-all transform hover:scale-105 shadow-md peer-checked:shadow-xl">
+                                <div class="text-center">
+                                    <i class="fas fa-store text-5xl mb-4 text-gray-400 peer-checked:text-yellow-600"></i>
+                                    <h3 class="text-2xl font-bold text-gray-800">SELLER</h3>
+                                    <p class="text-sm text-gray-600 mt-2">Sell your products to customers</p>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Registration Form - Dynamic Grid -->
+                <div class="max-w-md mx-auto">
+                    
+                    <!-- BUYER FIELDS (Centered) -->
+                    <div id="buyerFields" class="space-y-5">
+                        <h3 class="text-xl font-bold text-green-700 border-b-2 border-green-300 pb-2 mb-4">
+                            <i class="fas fa-user mr-2"></i>Buyer Information
+                        </h3>
+                        
+                        <div>
+                            <label for="full_name" class="block text-sm font-bold text-gray-800 mb-2 uppercase">
+                                Name as per NO.IC:
+                            </label>
+                            <input type="text" 
+                                   id="full_name" 
+                                   name="full_name" 
+                                   class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+                                   placeholder="Enter your full name">
+                        </div>
+                        
+                        <div>
+                            <label for="ic_number" class="block text-sm font-bold text-gray-800 mb-2 uppercase">
+                                IC Number (without '-'):
+                            </label>
+                            <input type="text" 
+                                   id="ic_number" 
+                                   name="ic_number" 
+                                   class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+                                   placeholder="e.g., 990101101234"
+                                   maxlength="12"
+                                   pattern="[0-9]{12}">
+                        </div>
+                        
+                        <div>
+                            <label for="buyer_email" class="block text-sm font-bold text-gray-800 mb-2 uppercase">
+                                Email Address:
+                            </label>
+                            <input type="email" 
+                                   id="buyer_email" 
+                                   name="email" 
+                                   class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+                                   placeholder="your@email.com">
+                        </div>
+                        
+                        <div>
+                            <label for="buyer_phone" class="block text-sm font-bold text-gray-800 mb-2 uppercase">
+                                Phone Number:
+                            </label>
+                            <input type="tel" 
+                                   id="buyer_phone" 
+                                   name="phone_number" 
+                                   class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+                                   placeholder="0123456789">
+                        </div>
+                        
+                        <div>
+                            <label for="buyer_password" class="block text-sm font-bold text-gray-800 mb-2 uppercase">
+                                Password:
+                            </label>
+                            <div class="relative">
+                                <input type="password" 
+                                       id="buyer_password" 
+                                       name="password" 
+                                       class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+                                       placeholder="••••••••">
+                                <button type="button" onclick="togglePassword('buyer_password')" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700">
+                                    <i class="fas fa-eye" id="buyer_password_icon"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="buyer_password_confirm" class="block text-sm font-bold text-gray-800 mb-2 uppercase">
+                                Confirm Password:
+                            </label>
+                            <div class="relative">
+                                <input type="password" 
+                                       id="buyer_password_confirm" 
+                                       name="password_confirm" 
+                                       class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+                                       placeholder="••••••••">
+                                <button type="button" onclick="togglePassword('buyer_password_confirm')" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700">
+                                    <i class="fas fa-eye" id="buyer_password_confirm_icon"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" 
+                                class="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold py-4 rounded-xl transition-all shadow-lg hover:shadow-xl transform hover:scale-105 uppercase tracking-wide">
+                            <i class="fas fa-user-check mr-2"></i>Register as Buyer
+                        </button>
+                    </div>
+
+                    <!-- SELLER FIELDS (Centered) -->
+                    <div id="sellerFields" class="space-y-5 hidden">
+                        <h3 class="text-xl font-bold text-yellow-700 border-b-2 border-yellow-300 pb-2 mb-4">
+                            <i class="fas fa-building mr-2"></i>Seller Information
+                        </h3>
+                        
+                        <div>
+                            <label for="company_name" class="block text-sm font-bold text-gray-800 mb-2 uppercase">
+                                Company Name:
+                            </label>
+                            <input type="text" 
+                                   id="company_name" 
+                                   name="company_name" 
+                                   class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
+                                   placeholder="Enter company name">
+                        </div>
+                        
+                        <div>
+                            <label for="business_registration" class="block text-sm font-bold text-gray-800 mb-2 uppercase">
+                                SSM/ ROC No.:
+                            </label>
+                            <input type="text" 
+                                   id="business_registration" 
+                                   name="business_registration" 
+                                   class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
+                                   placeholder="e.g., 202301234567">
+                        </div>
+                        
+                        <div>
+                            <label for="seller_email" class="block text-sm font-bold text-gray-800 mb-2 uppercase">
+                                Email Address:
+                            </label>
+                            <input type="email" 
+                                   id="seller_email" 
+                                   name="email" 
+                                   class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
+                                   placeholder="company@email.com">
+                        </div>
+                        
+                        <div>
+                            <label for="seller_phone" class="block text-sm font-bold text-gray-800 mb-2 uppercase">
+                                Phone Number:
+                            </label>
+                            <input type="tel" 
+                                   id="seller_phone" 
+                                   name="phone_number" 
+                                   class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
+                                   placeholder="0123456789">
+                        </div>
+                        
+                        <div>
+                            <label for="seller_password" class="block text-sm font-bold text-gray-800 mb-2 uppercase">
+                                Password:
+                            </label>
+                            <div class="relative">
+                                <input type="password" 
+                                       id="seller_password" 
+                                       name="password" 
+                                       class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
+                                       placeholder="••••••••">
+                                <button type="button" onclick="togglePassword('seller_password')" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700">
+                                    <i class="fas fa-eye" id="seller_password_icon"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="seller_password_confirm" class="block text-sm font-bold text-gray-800 mb-2 uppercase">
+                                Confirm Password:
+                            </label>
+                            <div class="relative">
+                                <input type="password" 
+                                       id="seller_password_confirm" 
+                                       name="password_confirm" 
+                                       class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition"
+                                       placeholder="••••••••">
+                                <button type="button" onclick="togglePassword('seller_password_confirm')" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700">
+                                    <i class="fas fa-eye" id="seller_password_confirm_icon"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" 
+                                class="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg hover:shadow-xl transform hover:scale-105 uppercase tracking-wide">
+                            <i class="fas fa-store mr-2"></i>Register as Seller
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Terms and Login Link -->
+                <div class="mt-10 text-center space-y-4">
+                    <div class="flex items-center justify-center">
+                        <input type="checkbox" required id="terms" class="rounded border-gray-300 text-green-600 focus:ring-green-500 w-5 h-5">
+                        <label for="terms" class="ml-3 text-sm text-gray-700">
+                            I agree to the <a href="#" class="text-green-600 hover:text-green-700 font-semibold">Terms of Service</a> and 
+                            <a href="#" class="text-green-600 hover:text-green-700 font-semibold">Privacy Policy</a>
+                        </label>
+                    </div>
+                    
+                    <div class="border-t pt-6">
+                        <p class="text-gray-600">Already have an account? 
+                            <a href="{% url 'login' %}" class="text-green-600 hover:text-green-700 font-bold text-lg">Login here</a>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Features Banner -->
+        <div class="mt-8 text-center">
+            <div class="inline-flex items-center space-x-8 text-sm text-gray-600">
+                <div class="flex items-center">
+                    <i class="fas fa-shield-alt text-green-600 mr-2"></i>
+                    <span>Secure Platform</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                    <span>Verified Sellers</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-truck text-green-600 mr-2"></i>
+                    <span>Fast Delivery</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleFormFields() {
+    const userType = document.querySelector('input[name="user_type"]:checked').value;
+    const buyerFields = document.getElementById('buyerFields');
+    const sellerFields = document.getElementById('sellerFields');
+    
+    if (userType === 'buyer') {
+        buyerFields.classList.remove('hidden');
+        sellerFields.classList.add('hidden');
+        
+        // Enable buyer fields, disable seller fields
+        buyerFields.querySelectorAll('input').forEach(input => input.disabled = false);
+        sellerFields.querySelectorAll('input').forEach(input => input.disabled = true);
+    } else {
+        buyerFields.classList.add('hidden');
+        sellerFields.classList.remove('hidden');
+        
+        // Enable seller fields, disable buyer fields
+        sellerFields.querySelectorAll('input').forEach(input => input.disabled = false);
+        buyerFields.querySelectorAll('input').forEach(input => input.disabled = true);
+    }
+}
+
+function togglePassword(fieldId) {
+    const passwordField = document.getElementById(fieldId);
+    const icon = document.getElementById(fieldId + '_icon');
+    
+    if (passwordField.type === 'password') {
+        passwordField.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+    } else {
+        passwordField.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    }
+}
+
+// Form validation
+document.getElementById('registrationForm').addEventListener('submit', function(e) {
+    const userType = document.querySelector('input[name=\"user_type\"]:checked').value;
+    let isValid = true;
+    let errorMsg = '';
+    
+    if (userType === 'buyer') {
+        const fullName = document.getElementById('full_name').value;
+        const icNumber = document.getElementById('ic_number').value;
+        const email = document.getElementById('buyer_email').value;
+        const phone = document.getElementById('buyer_phone').value;
+        const password = document.getElementById('buyer_password').value;
+        const passwordConfirm = document.getElementById('buyer_password_confirm').value;
+        
+        if (!fullName || !icNumber || !email || !phone || !password || !passwordConfirm) {
+            errorMsg = 'Please fill in all required fields';
+            isValid = false;
+        } else if (icNumber.length !== 12 || !/^[0-9]+$/.test(icNumber)) {
+            errorMsg = 'IC Number must be 12 digits without dashes';
+            isValid = false;
+        } else if (password !== passwordConfirm) {
+            errorMsg = 'Passwords do not match';
+            isValid = false;
+        } else if (password.length < 8) {
+            errorMsg = 'Password must be at least 8 characters';
+            isValid = false;
+        }
+    } else {
+        const companyName = document.getElementById('company_name').value;
+        const businessReg = document.getElementById('business_registration').value;
+        const email = document.getElementById('seller_email').value;
+        const phone = document.getElementById('seller_phone').value;
+        const password = document.getElementById('seller_password').value;
+        const passwordConfirm = document.getElementById('seller_password_confirm').value;
+        
+        if (!companyName || !businessReg || !email || !phone || !password || !passwordConfirm) {
+            errorMsg = 'Please fill in all required fields';
+            isValid = false;
+        } else if (password !== passwordConfirm) {
+            errorMsg = 'Passwords do not match';
+            isValid = false;
+        } else if (password.length < 8) {
+            errorMsg = 'Password must be at least 8 characters';
+            isValid = false;
+        }
+    }
+    
+    if (!isValid) {
+        e.preventDefault();
+        alert(errorMsg);
+    }
+});
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    toggleFormFields();
+});
+</script>
+{% endblock %}

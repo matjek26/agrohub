@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}Search - Agrohub{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">
+                {% if query %}
+                    Search Results for "{{ query }}"
+                {% else %}
+                    Browse All Products
+                {% endif %}
+            </h1>
+            <p class="text-gray-600">{{ listings.count }} products found</p>
+        </div>
+        
+        <!-- Filters -->
+        <div class="bg-white rounded-2xl shadow-md p-6 mb-8">
+            <form method="GET" action="{% url 'search' %}" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <input type="text" 
+                       name="q" 
+                       value="{{ query }}" 
+                       placeholder="Search products..." 
+                       class="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500">
+                
+                <select name="category" class="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500">
+                    <option value="">All Categories</option>
+                    {% for cat in categories %}
+                        <option value="{{ cat.slug }}" {% if cat.slug == selected_category %}selected{% endif %}>{{ cat.display_name }}</option>
+                    {% endfor %}
+                </select>
+                
+                <select name="state" class="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500">
+                    <option value="">All States</option>
+                    <option value="johor" {% if selected_state == 'johor' %}selected{% endif %}>Johor</option>
+                    <option value="kedah" {% if selected_state == 'kedah' %}selected{% endif %}>Kedah</option>
+                    <option value="kelantan" {% if selected_state == 'kelantan' %}selected{% endif %}>Kelantan</option>
+                    <option value="selangor" {% if selected_state == 'selangor' %}selected{% endif %}>Selangor</option>
+                    <!-- Add more states -->
+                </select>
+                
+                <button type="submit" class="bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-6 rounded-xl transition">
+                    <i class="fas fa-search mr-2"></i>Search
+                </button>
+            </form>
+        </div>
+        
+        <!-- Results Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for listing in listings %}
+            <a href="{% url 'listing_detail' listing.slug %}" class="group">
+                <div class="bg-white rounded-2xl shadow-md card-hover overflow-hidden">
+                    <div class="relative h-56 bg-gray-200">
+                        {% if listing.image1 %}
+                            <img src="{{ listing.image1.url }}" alt="{{ listing.title }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
+                        {% else %}
+                            <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary-100 to-primary-200">
+                                <i class="fas fa-image text-primary-300 text-5xl"></i>
+                            </div>
+                        {% endif %}
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold text-primary-600">
+                            {{ listing.category.display_name }}
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-semibold text-gray-800 mb-2 line-clamp-2 group-hover:text-primary-600 transition">
+                            {{ listing.title }}
+                        </h3>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <div class="text-2xl font-bold text-primary-600">
+                                    RM {{ listing.price }}
+                                </div>
+                                <div class="text-xs text-gray-500 mt-1 flex items-center">
+                                    <i class="fas fa-map-marker-alt mr-1"></i>
+                                    {{ listing.get_state_display }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% empty %}
+            <div class="col-span-4 text-center py-20">
+                <i class="fas fa-search text-gray-300 text-6xl mb-4"></i>
+                <h3 class="text-2xl font-bold text-gray-700 mb-2">No Results Found</h3>
+                <p class="text-gray-500 mb-6">Try adjusting your search or filters</p>
+                <a href="{% url 'home' %}" class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold px-6 py-3 rounded-full transition">
+                    <i class="fas fa-home mr-2"></i>Back to Home
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
