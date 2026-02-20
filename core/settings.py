@@ -24,6 +24,12 @@ if 'RAILWAY_STATIC_URL' in os.environ or 'RENDER' in os.environ:
     ALLOWED_HOSTS += ['.railway.app', '.onrender.com']
 
 
+# Authentication backends
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
