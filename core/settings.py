@@ -138,6 +138,12 @@ if not DEBUG:
     SECURE_CONTENT_TYPE_NOSNIFF = True
     # Trust Railway's proxy for HTTPS
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    # Only enable these after domain is set up
-    # CSRF_COOKIE_SECURE = True
-    # SESSION_COOKIE_SECURE = True
+    # Force HTTPS redirect
+    SECURE_SSL_REDIRECT = True
+    # Secure cookies
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    # HSTS (HTTP Strict Transport Security)
+    SECURE_HSTS_SECONDS = 31536000  # 1 year
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
