@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<!-- Hero Section -->
-<section class="relative h-[650px] gradient-hero overflow-hidden pt-24">
+<!-- Hero Section - Mobile Optimized -->
+<section class="relative h-[500px] sm:h-[580px] lg:h-[650px] gradient-hero overflow-hidden pt-16 sm:pt-20 lg:pt-24">
     <!-- Background Pattern -->
     <div class="absolute inset-0 opacity-10">
         <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%23ffffff&quot; fill-opacity=&quot;0.4&quot;%3E%3Cpath d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
     </div>
     
-    <!-- Hero Image with Floating Elements (Right Side) -->
+    <!-- Hero Image with Floating Elements (Desktop Only) -->
     <div class="hidden lg:block absolute right-0 top-0 w-1/2 h-full">
         <!-- Main Hero Image with Gradient Overlay -->
         <div class="relative w-full h-full">
@@ -54,38 +54,40 @@
         </div>
     </div>
     
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center pb-24">
-        <div class="max-w-3xl lg:max-w-xl xl:max-w-2xl pt-8 pr-8">
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center pb-16 sm:pb-20 lg:pb-24">
+        <div class="max-w-3xl lg:max-w-xl xl:max-w-2xl pt-4 sm:pt-8 pr-4 sm:pr-8 text-center lg:text-left">
+            <!-- Mobile-Optimized Heading -->
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
                 Malaysia's Largest<br>
-                <span class="text-accent-300">Online</span><br class="lg:hidden">
-                <span class="text-accent-300">Agromarketplace</span>
+                <span class="text-accent-300">Online Agromarketplace</span>
             </h1>
-            <p class="text-lg md:text-xl text-white/90 mb-8 font-light leading-relaxed">
+            <p class="text-base sm:text-lg md:text-xl text-white/95 mb-6 sm:mb-8 font-light leading-relaxed px-2 sm:px-0">
                 Connect with farmers, suppliers, and buyers across Malaysia. Buy and sell agricultural products seamlessly.
             </p>
-            <div class="flex flex-wrap gap-4 mb-12">
-                <a href="{% url 'search' %}" class="bg-white text-primary-600 px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-base md:text-lg shadow-xl hover:shadow-2xl transition transform hover:scale-105">
+            
+            <!-- Mobile-Friendly Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-12 px-4 sm:px-0">
+                <a href="{% url 'search' %}" class="bg-white text-primary-600 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-bold text-base md:text-lg shadow-xl hover:shadow-2xl transition transform hover:scale-105 flex items-center justify-center">
                     <i class="fas fa-search mr-2"></i>Browse Products
                 </a>
-                <a href="{% url 'create_listing' %}" class="bg-accent-400 text-gray-900 px-6 md:px-8 py-3 md:py-4 rounded-full font-bold text-base md:text-lg shadow-xl hover:shadow-2xl transition transform hover:scale-105">
+                <a href="{% url 'create_listing' %}" class="bg-accent-400 text-gray-900 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full font-bold text-base md:text-lg shadow-xl hover:shadow-2xl transition transform hover:scale-105 flex items-center justify-center">
                     <i class="fas fa-plus mr-2"></i>Start Selling
                 </a>
             </div>
             
-            <!-- Stats - Beautiful Cards with Perfect Visibility -->
-            <div class="grid grid-cols-3 gap-8 max-w-4xl mx-auto relative z-20">
-                <div class="bg-white rounded-2xl p-8 text-center shadow-2xl hover:shadow-3xl transition transform hover:scale-105 hover:-translate-y-1">
-                    <div class="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent mb-3">40K</div>
-                    <div class="text-gray-700 text-base font-semibold tracking-wide">Products</div>
+            <!-- Stats - Mobile Optimized -->
+            <div class="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-8 max-w-4xl mx-auto lg:mx-0 relative z-20">
+                <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 text-center shadow-2xl hover:shadow-3xl transition transform hover:scale-105 hover:-translate-y-1">
+                    <div class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent mb-1 sm:mb-2 lg:mb-3">40K</div>
+                    <div class="text-gray-700 text-xs sm:text-sm lg:text-base font-semibold tracking-wide">Products</div>
                 </div>
-                <div class="bg-white rounded-2xl p-8 text-center shadow-2xl hover:shadow-3xl transition transform hover:scale-105 hover:-translate-y-1">
-                    <div class="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent mb-3">10K</div>
-                    <div class="text-gray-700 text-base font-semibold tracking-wide">Sellers</div>
+                <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 text-center shadow-2xl hover:shadow-3xl transition transform hover:scale-105 hover:-translate-y-1">
+                    <div class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent mb-1 sm:mb-2 lg:mb-3">10K</div>
+                    <div class="text-gray-700 text-xs sm:text-sm lg:text-base font-semibold tracking-wide">Sellers</div>
                 </div>
-                <div class="bg-white rounded-2xl p-8 text-center shadow-2xl hover:shadow-3xl transition transform hover:scale-105 hover:-translate-y-1">
-                    <div class="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent mb-3">2M</div>
-                    <div class="text-gray-700 text-base font-semibold tracking-wide">Users</div>
+                <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 text-center shadow-2xl hover:shadow-3xl transition transform hover:scale-105 hover:-translate-y-1">
+                    <div class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent mb-1 sm:mb-2 lg:mb-3">2M</div>
+                    <div class="text-gray-700 text-xs sm:text-sm lg:text-base font-semibold tracking-wide">Users</div>
                 </div>
             </div>
         </div>
@@ -103,77 +105,78 @@
     </div>
 </section>
 
-<!-- Categories Section -->
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="text-center mb-12">
-        <h2 class="text-4xl font-bold text-gray-900 mb-4">Explore by Category</h2>
-        <p class="text-xl text-gray-600">Find what you need in our specialized categories</p>
+<!-- Categories Section - Mobile Optimized -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+    <div class="text-center mb-8 sm:mb-12">
+        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">Explore by Category</h2>
+        <p class="text-lg sm:text-xl text-gray-600 px-4">Find what you need in our specialized categories</p>
     </div>
     
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+    <!-- Mobile-Optimized Grid -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-6">
         <!-- Aquaculture -->
         <a href="{% url 'category' 'aquaculture' %}" class="category-icon">
-            <div class="bg-white rounded-2xl p-6 shadow-lg card-hover text-center">
-                <div class="w-20 h-20 mx-auto bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mb-4">
-                    <i class="fas fa-fish text-white text-3xl"></i>
+            <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg card-hover text-center">
+                <div class="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 mx-auto bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mb-2 sm:mb-3 lg:mb-4">
+                    <i class="fas fa-fish text-white text-xl sm:text-2xl lg:text-3xl"></i>
                 </div>
-                <h3 class="font-semibold text-gray-800">Aquaculture</h3>
-                <p class="text-sm text-gray-500 mt-1">Fish & Aquatic</p>
+                <h3 class="font-semibold text-gray-800 text-sm sm:text-base">Aquaculture</h3>
+                <p class="text-xs sm:text-sm text-gray-500 mt-0.5 sm:mt-1">Fish & Aquatic</p>
             </div>
         </a>
         
         <!-- Seafoods -->
         <a href="{% url 'category' 'seafoods' %}" class="category-icon">
-            <div class="bg-white rounded-2xl p-6 shadow-lg card-hover text-center">
-                <div class="w-20 h-20 mx-auto bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-full flex items-center justify-center mb-4">
-                    <i class="fas fa-shrimp text-white text-3xl"></i>
+            <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg card-hover text-center">
+                <div class="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 mx-auto bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-full flex items-center justify-center mb-2 sm:mb-3 lg:mb-4">
+                    <i class="fas fa-shrimp text-white text-xl sm:text-2xl lg:text-3xl"></i>
                 </div>
-                <h3 class="font-semibold text-gray-800">Seafoods</h3>
-                <p class="text-sm text-gray-500 mt-1">Fresh Seafood</p>
+                <h3 class="font-semibold text-gray-800 text-sm sm:text-base">Seafoods</h3>
+                <p class="text-xs sm:text-sm text-gray-500 mt-0.5 sm:mt-1">Fresh Seafood</p>
             </div>
         </a>
         
         <!-- Agro-Processed -->
         <a href="{% url 'category' 'agro-processed' %}" class="category-icon">
-            <div class="bg-white rounded-2xl p-6 shadow-lg card-hover text-center">
-                <div class="w-20 h-20 mx-auto bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center mb-4">
-                    <i class="fas fa-boxes-stacked text-white text-3xl"></i>
+            <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg card-hover text-center">
+                <div class="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 mx-auto bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center mb-2 sm:mb-3 lg:mb-4">
+                    <i class="fas fa-boxes-stacked text-white text-xl sm:text-2xl lg:text-3xl"></i>
                 </div>
-                <h3 class="font-semibold text-gray-800">Agro-Processed</h3>
-                <p class="text-sm text-gray-500 mt-1">Processed Goods</p>
+                <h3 class="font-semibold text-gray-800 text-sm sm:text-base">Agro-Processed</h3>
+                <p class="text-xs sm:text-sm text-gray-500 mt-0.5 sm:mt-1">Processed Goods</p>
             </div>
         </a>
         
         <!-- Courses -->
         <a href="{% url 'category' 'courses' %}" class="category-icon">
-            <div class="bg-white rounded-2xl p-6 shadow-lg card-hover text-center">
-                <div class="w-20 h-20 mx-auto bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mb-4">
-                    <i class="fas fa-graduation-cap text-white text-3xl"></i>
+            <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg card-hover text-center">
+                <div class="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 mx-auto bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mb-2 sm:mb-3 lg:mb-4">
+                    <i class="fas fa-graduation-cap text-white text-xl sm:text-2xl lg:text-3xl"></i>
                 </div>
-                <h3 class="font-semibold text-gray-800">Courses</h3>
-                <p class="text-sm text-gray-500 mt-1">Training Programs</p>
+                <h3 class="font-semibold text-gray-800 text-sm sm:text-base">Courses</h3>
+                <p class="text-xs sm:text-sm text-gray-500 mt-0.5 sm:mt-1">Training Programs</p>
             </div>
         </a>
         
         <!-- Tools for Rent -->
         <a href="{% url 'category' 'tools-rent' %}" class="category-icon">
-            <div class="bg-white rounded-2xl p-6 shadow-lg card-hover text-center">
-                <div class="w-20 h-20 mx-auto bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mb-4">
-                    <i class="fas fa-tractor text-white text-3xl"></i>
+            <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg card-hover text-center">
+                <div class="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 mx-auto bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mb-2 sm:mb-3 lg:mb-4">
+                    <i class="fas fa-tractor text-white text-xl sm:text-2xl lg:text-3xl"></i>
                 </div>
-                <h3 class="font-semibold text-gray-800">Tools</h3>
-                <p class="text-sm text-gray-500 mt-1">Equipment Rental</p>
+                <h3 class="font-semibold text-gray-800 text-sm sm:text-base">Tools</h3>
+                <p class="text-xs sm:text-sm text-gray-500 mt-0.5 sm:mt-1">Equipment Rental</p>
             </div>
         </a>
         
         <!-- Jobs -->
         <a href="{% url 'category' 'jobs' %}" class="category-icon">
-            <div class="bg-white rounded-2xl p-6 shadow-lg card-hover text-center">
-                <div class="w-20 h-20 mx-auto bg-gradient-to-br from-pink-500 to-pink-600 rounded-full flex items-center justify-center mb-4">
-                    <i class="fas fa-briefcase text-white text-3xl"></i>
+            <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg card-hover text-center">
+                <div class="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 mx-auto bg-gradient-to-br from-pink-500 to-pink-600 rounded-full flex items-center justify-center mb-2 sm:mb-3 lg:mb-4">
+                    <i class="fas fa-briefcase text-white text-xl sm:text-2xl lg:text-3xl"></i>
                 </div>
-                <h3 class="font-semibold text-gray-800">Jobs</h3>
-                <p class="text-sm text-gray-500 mt-1">Career Opportunities</p>
+                <h3 class="font-semibold text-gray-800 text-sm sm:text-base">Jobs</h3>
+                <p class="text-xs sm:text-sm text-gray-500 mt-0.5 sm:mt-1">Career Opportunities</p>
             </div>
         </a>
     </div>
